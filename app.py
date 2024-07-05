@@ -4,7 +4,7 @@ import joblib
 from utils import preprocessor
 
 def run():
-    model = joblib.load('model.joblib')
+    model = ???
 
     st.title("Sentiment Analysis")
     st.text("Basic app to detect the sentiment of text.")
@@ -13,13 +13,13 @@ def run():
     st.text("")
     predicted_sentiment = ""
     if st.button("Predict"):
-        predicted_sentiment = model.predict(preprocessed_input)[0]
+        predicted_sentiment = ???
         if predicted_sentiment == 1:
             output = 'positive 👍'
         else:
             output = 'negative 👎'
         sentiment=f'Predicted sentiment of "{userinput}" is {output}.'
-        st.success(sentiment)
+        st.success(???)
 
 if __name__ == "__main__":
     run()
