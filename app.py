@@ -13,13 +13,13 @@ def run():
     st.text("")
     predicted_sentiment = ""
     if st.button("Predict"):
-        predicted_sentiment = ???
+        predicted_sentiment = model.predict(preprocessed_input)[0]
         if predicted_sentiment == 1:
             output = 'positive 👍'
         else:
             output = 'negative 👎'
         sentiment=f'Predicted sentiment of "{userinput}" is {output}.'
-        st.success(???)
+        st.success(sentiment)
 
 if __name__ == "__main__":
     run()
