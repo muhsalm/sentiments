@@ -1,23 +1,22 @@
-import numpy as np
-import pandas as pd
-import regex as re
-import joblib
-import en_core_web_sm
+import re
+import spacy
+from spacy.cli import download
+from sklearn.base import TransformerMixin, BaseEstimator
 
-from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.svm import LinearSVC
-
-nlp = en_core_web_sm.load()
-classifier = LinearSVC()
+# Ensure the model is downloaded
+try:
+    nlp = spacy.load('en_core_web_sm')
+except OSError:
+    download('en_core_web_sm')
+    nlp = spacy.load('en_core_web_sm')
 
 def clean_text(text):
     # reduce multiple spaces and newlines to only one
-    text = re.sub(r'(\s\s+|\n\n+)', r'\1', text)
+    text = re.sub(r'(\s\s+|\n\n+)', r' ', text)
     # remove double quotes
     text = re.sub(r'"', '', text)
-
     return text
-	
+
 def convert_text(text):
     sent = nlp(text)
     ents = {x.text: x for x in sent.ents}
@@ -30,12 +29,9 @@ def convert_text(text):
         else:
             tokens.append(w.lemma_.lower())
     text = ' '.join(tokens)
-
     return text
 
-
 class preprocessor(TransformerMixin, BaseEstimator):
-
     def __init__(self):
         pass
 
